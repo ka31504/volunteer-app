@@ -29,6 +29,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('projects', ProjectController::class);
     Route::resource('donations', DonationController::class);
     Route::resource('participants', ParticipantController::class);
+    Route::resource('sponsors', SponsorController::class);
 });
 
 // Xem — auth đủ (cả Admin lẫn User)

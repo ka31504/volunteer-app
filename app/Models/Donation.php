@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Helpers\MaskHelper;
 use Illuminate\Support\Facades\Auth;
 
+
 class Donation extends Model
-{
+    
+{   
+    use HasFactory;
     protected $fillable = [
         'project_id',
         'donor_name',

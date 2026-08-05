@@ -19,7 +19,7 @@ class DonationTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::factory()->create();
+        $this->user = User::factory()->create(['role' => 'admin']);
         $this->project = Project::factory()->create([
             'target_amount'    => 10_000_000,
             'current_amount' => 0,
