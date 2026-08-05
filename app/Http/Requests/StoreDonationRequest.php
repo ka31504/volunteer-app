@@ -12,17 +12,16 @@ class StoreDonationRequest extends FormRequest
     {
         return [
             'project_id'        => 'required|exists:projects,id',
-            'donor_name'        => 'required|string|max:100',
+            'donor_name'        => 'required|string|max:255',
             'sponsor_id'        => 'nullable|exists:sponsors,id',
             'donor_phone'       => 'nullable|string|max:20',
             'type'              => 'required|in:money,goods',
-            'amount'            => 'required_if:type,money|nullable|numeric|min:1000',
-            'goods_description' => 'required_if:type,goods|nullable|string|max:255',
-            'goods_quantity'    => 'required_if:type,goods|nullable|integer|min:1',
-            'payment_method'    => 'required|in:cash,transfer,other',
+            'amount'            => 'nullable|required_if:type,money|numeric|min:1000',
+            'goods_description' => 'nullable|required_if:type,goods|string|max:500',
+            'goods_quantity'    => 'nullable|required_if:type,goods|integer|min:1',
+            'payment_method'    => 'nullable|string|in:cash,transfer,other',
             'donated_at'        => 'required|date',
             'note'              => 'nullable|string|max:1000',
-            
         ];
     }
 

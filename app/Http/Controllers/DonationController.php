@@ -7,6 +7,8 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Sponsor;
+use App\Http\Requests\StoreDonationRequest;
+use App\Http\Requests\UpdateDonationRequest;
 
 class DonationController extends Controller
 {
@@ -72,7 +74,7 @@ class DonationController extends Controller
     /**
      * Lưu đóng góp mới
      */
-    public function store(Request $request)
+    public function store(StoreDonationRequest $request)
     {
         $validated = $request->validate([
             'project_id'        => 'required|exists:projects,id',
@@ -95,7 +97,7 @@ class DonationController extends Controller
             'goods_quantity.required_if'    => 'Vui lòng nhập số lượng hiện vật.',
         ]);
 
-        Donation::create($validated);
+        Donation::create($request->validated());
         Cache::forget("statistics.cards." . now()->year);
         return redirect()->route('donations.index')
             ->with('success', 'Đã thêm khoản đóng góp thành công!');
@@ -127,7 +129,7 @@ class DonationController extends Controller
             'goods_quantity.required_if'    => 'Vui lòng nhập số lượng hiện vật.',
         ]);
 
-        $donation->update($validated);
+        $donation->update($request->validated());
         Cache::forget("statistics.cards." . now()->year);
         return redirect()->route('donations.index')
             ->with('success', 'Đã cập nhật khoản đóng góp thành công!');
