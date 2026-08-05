@@ -13,6 +13,7 @@ class Donation extends Model
         'project_id',
         'donor_name',
         'donor_phone',
+        'sponsor_id',
         'type',
         'amount',
         'goods_description',
@@ -30,6 +31,11 @@ class Donation extends Model
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function sponsor(): BelongsTo
+    {
+        return $this->belongsTo(Sponsor::class);
     }
 
     public function getFormattedAmountAttribute(): string

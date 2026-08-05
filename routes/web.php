@@ -8,6 +8,7 @@ use App\Http\Controllers\ParticipantController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\SponsorController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
@@ -35,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('projects', ProjectController::class)->only(['index', 'show']);
     Route::resource('donations', DonationController::class)->only(['index', 'show']);
     Route::resource('participants', ParticipantController::class)->only(['index', 'show']);
+    Route::resource('sponsors', SponsorController::class)->only(['index', 'show']);
 });
 
 // CRUD — chỉ Admin
@@ -42,6 +44,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('projects', ProjectController::class)->except(['index', 'show']);
     Route::resource('donations', DonationController::class)->except(['index', 'show']);
     Route::resource('participants', ParticipantController::class)->except(['index', 'show']);
+    Route::resource('sponsors', SponsorController::class)->except(['index', 'show']);
     Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
     Route::get('/statistics/export-pdf', [StatisticsController::class, 'exportPdf'])
     ->name('statistics.export-pdf')

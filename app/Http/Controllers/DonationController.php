@@ -6,6 +6,7 @@ use App\Models\Donation;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use App\Models\Sponsor;
 
 class DonationController extends Controller
 {
@@ -64,7 +65,8 @@ class DonationController extends Controller
     public function create()
     {
         $projects = Project::orderBy('name')->get(['id', 'name']);
-        return view('donations.create', compact('projects'));
+        $sponsors = Sponsor::orderBy('name')->get(['id', 'name', 'type']);
+        return view('donations.create', compact('projects', 'sponsors'));
     }
 
     /**
@@ -154,6 +156,7 @@ class DonationController extends Controller
     public function edit(Donation $donation)
     {
         $projects = Project::orderBy('name')->get(['id', 'name']);
-        return view('donations.edit', compact('donation', 'projects'));
+        $sponsors = Sponsor::orderBy('name')->get(['id', 'name', 'type']);
+        return view('donations.edit', compact('donation', 'projects', 'sponsors'));
     }
 }

@@ -13,6 +13,7 @@ class StoreDonationRequest extends FormRequest
         return [
             'project_id'        => 'required|exists:projects,id',
             'donor_name'        => 'required|string|max:100',
+            'sponsor_id'        => 'nullable|exists:sponsors,id',
             'donor_phone'       => 'nullable|string|max:20',
             'type'              => 'required|in:money,goods',
             'amount'            => 'required_if:type,money|nullable|numeric|min:1000',
@@ -21,6 +22,7 @@ class StoreDonationRequest extends FormRequest
             'payment_method'    => 'required|in:cash,transfer,other',
             'donated_at'        => 'required|date',
             'note'              => 'nullable|string|max:1000',
+            
         ];
     }
 
