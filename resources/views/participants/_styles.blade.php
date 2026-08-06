@@ -9,6 +9,7 @@
     justify-content: space-between;
     gap: 16px;
     margin-bottom: 24px;
+    flex-wrap: wrap;
 }
 .p-header-title { font-size: 20px; font-weight: 600; color: var(--ink); line-height: 1.2; }
 .p-header-sub   { font-size: 13px; color: var(--ink-mute); margin-top: 4px; }

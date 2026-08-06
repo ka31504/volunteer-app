@@ -330,6 +330,7 @@
                     <span class="nav-icon">🤝</span> Nhà tài trợ
                 </a>
 
+                @if(Auth::user()->role === 'admin')
                 <div class="nav-section-label">Báo cáo</div>
                 <a href="{{ route('statistics.index') }}" class="nav-item">
                     <span class="nav-icon">📈</span> Thống kê
@@ -338,6 +339,7 @@
                     class="nav-item">
                     <span class="nav-icon">📄</span> Xuất PDF
                 </a>
+                @endif
 
                 @if(Auth::user()->role === 'admin')
                 <div class="nav-section-label">Hệ thống</div>
