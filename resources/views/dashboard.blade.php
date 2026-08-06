@@ -225,7 +225,7 @@
                 @foreach($recentDonations as $d)
                 <div class="donation-item">
                     <div style="flex:1;min-width:0">
-                        <div class="donation-name">{{ $d->masked_donor_name }}</div>>
+                        <div class="donation-name">{{ $d->display_donor_name }}</div>
                         <div class="donation-project">{{ $d->project->name ?? '—' }}</div>
                     </div>
                     <div style="text-align:right">
