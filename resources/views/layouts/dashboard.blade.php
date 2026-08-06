@@ -343,7 +343,8 @@
 
                 @if(Auth::user()->role === 'admin')
                 <div class="nav-section-label">Hệ thống</div>
-                <a href="#" class="nav-item">
+                <a href="{{ route('users.index') }}"
+                    class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
                     <span class="nav-icon">⚙️</span> Cài đặt
                 </a>
                 @endif

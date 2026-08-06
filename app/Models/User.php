@@ -17,6 +17,8 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
+    public const ROLES = ['admin', 'editor', 'user'];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -33,5 +35,9 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
+    }
+    public function isEditor(): bool
+    {
+        return $this->role === 'editor';
     }
 }

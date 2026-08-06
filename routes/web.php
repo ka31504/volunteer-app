@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
@@ -30,6 +31,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('donations', DonationController::class);
     Route::resource('participants', ParticipantController::class);
     Route::resource('sponsors', SponsorController::class);
+    Route::resource('users', UserController::class);
 });
 
 // Xem — auth đủ (cả Admin lẫn User)
