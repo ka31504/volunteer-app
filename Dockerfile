@@ -19,6 +19,7 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Railway cấp cổng qua biến $PORT, cần dùng shell form để biến được thay thế đúng
 CMD php artisan config:cache \
+    && php artisan cache:clear \
     && php artisan route:cache \
     && php artisan migrate --force \
     && php artisan serve --host 0.0.0.0 --port ${PORT:-8080}
