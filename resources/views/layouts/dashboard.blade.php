@@ -38,6 +38,7 @@
             background: var(--canvas-soft);
             color: var(--ink);
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
         /* LAYOUT */
@@ -271,7 +272,7 @@
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.3);
-            z-index: 49;
+            z-index: 39;
         }
 
         @media (max-width: 768px) {
