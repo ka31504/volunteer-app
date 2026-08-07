@@ -25,14 +25,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-// Xem — auth đủ (Admin + Editor + User)
-Route::middleware(['auth'])->group(function () {
-    Route::resource('projects', ProjectController::class)->only(['index', 'show']);
-    Route::resource('donations', DonationController::class)->only(['index', 'show']);
-    Route::resource('participants', ParticipantController::class)->only(['index', 'show']);
-    Route::resource('sponsors', SponsorController::class)->only(['index', 'show']);
-});
-
 // Thêm/Sửa — Admin + Editor (không Delete)
 Route::middleware(['auth', 'admin_or_editor'])->group(function () {
     Route::resource('projects', ProjectController::class)->only(['create', 'store', 'edit', 'update']);
@@ -42,6 +34,14 @@ Route::middleware(['auth', 'admin_or_editor'])->group(function () {
 
     Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
     Route::get('/statistics/export-pdf', [StatisticsController::class, 'exportPdf'])->name('statistics.export-pdf');
+});
+
+// Xem — auth đủ (Admin + Editor + User)
+Route::middleware(['auth'])->group(function () {
+    Route::resource('projects', ProjectController::class)->only(['index', 'show']);
+    Route::resource('donations', DonationController::class)->only(['index', 'show']);
+    Route::resource('participants', ParticipantController::class)->only(['index', 'show']);
+    Route::resource('sponsors', SponsorController::class)->only(['index', 'show']);
 });
 
 // Xoá + Quản lý tài khoản — chỉ Admin
