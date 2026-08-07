@@ -76,27 +76,6 @@ class DonationController extends Controller
      */
     public function store(StoreDonationRequest $request)
     {
-        $validated = $request->validate([
-            'project_id'        => 'required|exists:projects,id',
-            'donor_name'        => 'required|string|max:255',
-            'donor_phone'       => 'nullable|string|max:20',
-            'donated_at'        => 'required|date',
-            'type'              => 'required|in:money,goods',
-
-            // Thêm 'nullable' trước rule kiểu dữ liệu, để khi field không áp dụng
-            // (bị middleware chuyển thành null) không bị chặn bởi string/integer/numeric
-            'amount'            => 'nullable|required_if:type,money|numeric|min:1000',
-            'payment_method'    => 'nullable|string|in:cash,transfer,other',
-            'goods_description' => 'nullable|required_if:type,goods|string|max:500',
-            'goods_quantity'    => 'nullable|required_if:type,goods|integer|min:1',
-
-            'note'              => 'nullable|string|max:1000',
-        ], [
-            'amount.required_if'            => 'Vui lòng nhập số tiền.',
-            'goods_description.required_if' => 'Vui lòng nhập mô tả hiện vật.',
-            'goods_quantity.required_if'    => 'Vui lòng nhập số lượng hiện vật.',
-        ]);
-
         Donation::create($request->validated());
         Cache::forget("statistics.cards." . now()->year);
         return redirect()->route('donations.index')
