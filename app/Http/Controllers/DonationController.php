@@ -129,7 +129,7 @@ class DonationController extends Controller
             'goods_quantity.required_if'    => 'Vui lòng nhập số lượng hiện vật.',
         ]);
 
-        $donation->update($validated());
+        $donation->update($validated);
         Cache::forget("statistics.cards." . now()->year);
         return redirect()->route('donations.index')
             ->with('success', 'Đã cập nhật khoản đóng góp thành công!');
