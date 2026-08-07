@@ -41,7 +41,7 @@ class ParticipantController extends Controller
         if ($sort && in_array($sort, $allowedSorts)) {
             $query->orderBy($sort, $direction);
         } else {
-            $query->latest('joined_at');   // mặc định sắp theo ngày tham gia mới nhất
+            $query->orderBy('id', 'desc');   
         }
         // ====================================================
 

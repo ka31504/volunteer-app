@@ -18,9 +18,9 @@ class ProjectController extends Controller
 
         // Tìm kiếm theo tên hoặc mô tả
         if ($search = $request->input('search')) {
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                    ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -30,17 +30,18 @@ class ProjectController extends Controller
         }
 
         $sort = $request->get('sort');
-        $direction = $request->get('direction', 'asc');
+        $direction = $request->get('direction', 'desc');
 
-        if ($sort) {
+        $allowedSorts = ['id', 'name', 'status', 'created_at'];
+
+        if ($sort && in_array($sort, $allowedSorts)) {
             $query->orderBy($sort, $direction);
         } else {
-            $query->latest();
+            $query->orderBy('id', 'desc');
         }
 
-        $projects = $query->latest()
-                          ->paginate(15)
-                          ->withQueryString();
+        $projects = $query->paginate(15)
+            ->withQueryString();
 
         return view('projects.index', compact('projects'));
     }

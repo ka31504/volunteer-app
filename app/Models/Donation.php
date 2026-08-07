@@ -69,7 +69,7 @@ class Donation extends Model
             return $this->donor_name;
         }
 
-        if ($this->donor_name && str_contains(mb_strtolower($this->donor_name), 'ẩn danh')) {
+        if ($this->donor_name && str_contains(mb_strtolower($this->donor_name, 'UTF-8'), 'ẩn danh')) {
             return $this->donor_name;
         }
 

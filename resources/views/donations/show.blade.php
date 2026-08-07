@@ -92,6 +92,17 @@
                         </a>
                     </dd>
                 </div>
+                @if($donation->sponsor)
+                <div class="p-dl-row">
+                    <dt class="p-dt">Nhà tài trợ</dt>
+                    <dd class="p-dd">
+                        <a href="{{ route('sponsors.show', $donation->sponsor) }}" 
+                           style="color:var(--primary);text-decoration:none">
+                            {{ $donation->sponsor->name }}
+                        </a>
+                    </dd>
+                </div>
+                @endif
             </dl>
         </div>
     </div>

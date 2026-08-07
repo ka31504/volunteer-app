@@ -49,7 +49,7 @@ class DonationController extends Controller
             $query->orderBy($sort, $direction);
         } else {
             // 3. CHUYỂN latest() XUỐNG ĐÂY LÀM MẶC ĐỊNH
-            $query->latest('donated_at');
+           $query->orderBy('id', 'desc');
         }
         // ====================================================
 
@@ -129,7 +129,7 @@ class DonationController extends Controller
     // Hiển thị chi tiết đóng góp (nếu cần)
     public function show(Donation $donation)
     {
-        $donation->load('project');
+        $donation->load(['project', 'sponsor']);
         return view('donations.show', compact('donation'));
     }
 

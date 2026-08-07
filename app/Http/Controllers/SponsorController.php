@@ -28,7 +28,7 @@ class SponsorController extends Controller
         if ($sort && in_array($sort, $allowedSorts)) {
             $query->orderBy($sort, $direction);
         } else {
-            $query->latest();
+            $query->orderBy('id', 'desc');
         }
 
         $sponsors = $query->paginate(15)->withQueryString();
