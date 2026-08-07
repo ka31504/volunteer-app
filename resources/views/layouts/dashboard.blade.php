@@ -186,11 +186,16 @@
         /* MAIN */
         .db-main {
             flex: 1;
+            min-width: 0;
             margin-left: var(--sidebar-w);
             transition: margin-left 0.25s ease;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+        }
+
+        html {
+            overflow-x: hidden;
         }
 
         .db-main.expanded {
