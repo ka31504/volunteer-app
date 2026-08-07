@@ -12,7 +12,7 @@
         <div class="p-header-title">Dự án</div>
         <div class="p-header-sub">Quản lý các dự án thiện nguyện</div>
     </div>
-    @if(auth()->user()->isAdmin())
+    @if(auth()->user()->isAdmin() || auth()->user()->isEditor())
     <a href="{{ route('projects.create') }}" class="p-btn p-btn-primary">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path d="M12 5v14M5 12h14" />
@@ -120,7 +120,7 @@
                                     <circle cx="12" cy="12" r="3" />
                                 </svg>
                             </a>
-                            @if(auth()->user()->isAdmin())
+                            @if(auth()->user()->isAdmin() || auth()->user()->isEditor())
                             <a href="{{ route('projects.edit', $project) }}" class="p-btn-icon" title="Sửa">
                                 <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
                                     viewBox="0 0 24 24">
@@ -128,6 +128,8 @@
                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                                 </svg>
                             </a>
+                            @endif
+                            @if(auth()->user()->isAdmin())
                             <form action="{{ route('projects.destroy', $project) }}" method="POST"
                                 onsubmit="return confirm('Xác nhận xoá dự án này?')" style="display:contents">
                                 @csrf @method('DELETE')

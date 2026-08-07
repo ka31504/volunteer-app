@@ -25,16 +25,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-// CRUD — chỉ Admin
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::resource('projects', ProjectController::class);
-    Route::resource('donations', DonationController::class);
-    Route::resource('participants', ParticipantController::class);
-    Route::resource('sponsors', SponsorController::class);
-    Route::resource('users', UserController::class);
-});
-
-// Xem — auth đủ (cả Admin lẫn User)
+// Xem — auth đủ (Admin + Editor + User)
 Route::middleware(['auth'])->group(function () {
     Route::resource('projects', ProjectController::class)->only(['index', 'show']);
     Route::resource('donations', DonationController::class)->only(['index', 'show']);
@@ -42,16 +33,24 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('sponsors', SponsorController::class)->only(['index', 'show']);
 });
 
-// CRUD — chỉ Admin
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::resource('projects', ProjectController::class)->except(['index', 'show']);
-    Route::resource('donations', DonationController::class)->except(['index', 'show']);
-    Route::resource('participants', ParticipantController::class)->except(['index', 'show']);
-    Route::resource('sponsors', SponsorController::class)->except(['index', 'show']);
+// Thêm/Sửa — Admin + Editor (không Delete)
+Route::middleware(['auth', 'admin_or_editor'])->group(function () {
+    Route::resource('projects', ProjectController::class)->only(['create', 'store', 'edit', 'update']);
+    Route::resource('donations', DonationController::class)->only(['create', 'store', 'edit', 'update']);
+    Route::resource('participants', ParticipantController::class)->only(['create', 'store', 'edit', 'update']);
+    Route::resource('sponsors', SponsorController::class)->only(['create', 'store', 'edit', 'update']);
+
     Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
-    Route::get('/statistics/export-pdf', [StatisticsController::class, 'exportPdf'])
-    ->name('statistics.export-pdf')
-    ->middleware('auth');
+    Route::get('/statistics/export-pdf', [StatisticsController::class, 'exportPdf'])->name('statistics.export-pdf');
+});
+
+// Xoá + Quản lý tài khoản — chỉ Admin
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('projects', ProjectController::class)->only(['destroy']);
+    Route::resource('donations', DonationController::class)->only(['destroy']);
+    Route::resource('participants', ParticipantController::class)->only(['destroy']);
+    Route::resource('sponsors', SponsorController::class)->only(['destroy']);
+    Route::resource('users', UserController::class);
 });
 
 require __DIR__.'/auth.php';

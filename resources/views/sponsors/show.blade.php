@@ -11,7 +11,7 @@
         <div class="p-header-title">{{ $sponsor->name }}</div>
         <div class="p-header-sub">{{ $sponsor->type_label }}</div>
     </div>
-    @if(auth()->user()->isAdmin())
+    @if(auth()->user()->isAdmin() || auth()->user()->isEditor())
     <a href="{{ route('sponsors.edit', $sponsor) }}" class="p-btn p-btn-primary">Sửa thông tin</a>
     @endif
 </div>

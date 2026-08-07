@@ -330,7 +330,7 @@
                     <span class="nav-icon">🤝</span> Nhà tài trợ
                 </a>
 
-                @if(Auth::user()->role === 'admin')
+                @if(in_array(Auth::user()->role, ['admin', 'editor']))
                 <div class="nav-section-label">Báo cáo</div>
                 <a href="{{ route('statistics.index') }}" class="nav-item">
                     <span class="nav-icon">📈</span> Thống kê
@@ -355,7 +355,11 @@
                     <div class="user-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 2)) }}</div>
                     <div>
                         <div class="user-name">{{ Auth::user()->name }}</div>
-                        <div class="user-role">{{ Auth::user()->role === 'admin' ? 'Quản trị viên' : 'Người dùng' }}
+                        <div class="user-role">
+                            @if(Auth::user()->role === 'admin') Quản trị viên
+                            @elseif(Auth::user()->role === 'editor') Biên tập viên
+                            @else Người dùng
+                            @endif
                         </div>
                     </div>
                 </div>
