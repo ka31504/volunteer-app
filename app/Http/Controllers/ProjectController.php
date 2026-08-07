@@ -70,6 +70,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+        $project->load(['donations', 'participants']);
         return view('projects.show', compact('project'));
     }
 

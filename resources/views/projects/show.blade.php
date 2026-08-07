@@ -116,6 +116,49 @@
             </dl>
         </div>
     </div>
+    <div class="p-card">
+        <div class="p-card-header">Tình nguyện viên tham gia ({{ $project->participants->count() }})</div>
+        <div class="p-card-body">
+            @forelse($project->participants as $participant)
+                <div class="p-dl-row">
+                    <div>
+                        <div style="font-weight:500">{{ $participant->full_name }}</div>
+                        <div class="mute">{{ $participant->role_label }}</div>
+                    </div>
+                    <div style="text-align:right">
+                        <span class="p-badge p-badge-{{ $participant->status_color === 'success' ? 'green' : ($participant->status_color === 'danger' ? 'gray' : 'yellow') }}">
+                            {{ $participant->status_label }}
+                        </span>
+                    </div>
+                </div>
+            @empty
+                <p class="mute">Chưa có tình nguyện viên nào tham gia dự án này.</p>
+            @endforelse
+        </div>
+    </div>
+
+    <div class="p-card">
+        <div class="p-card-header">Đóng góp cho dự án ({{ $project->donations->count() }})</div>
+        <div class="p-card-body">
+            @forelse($project->donations as $donation)
+                <div class="p-dl-row">
+                    <div>
+                        <div style="font-weight:500">{{ $donation->display_donor_name }}</div>
+                        <div class="mute">{{ $donation->donated_at?->format('d/m/Y') }}</div>
+                    </div>
+                    <div style="text-align:right;font-weight:500">
+                        @if($donation->type === 'money')
+                            {{ number_format($donation->amount, 0, ',', '.') }}đ
+                        @else
+                            {{ $donation->goods_description }} (x{{ $donation->goods_quantity }})
+                        @endif
+                    </div>
+                </div>
+            @empty
+                <p class="mute">Chưa có đóng góp nào cho dự án này.</p>
+            @endforelse
+        </div>
+    </div>
 
 </div>
 
