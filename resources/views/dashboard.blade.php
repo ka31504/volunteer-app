@@ -262,12 +262,7 @@
                         <div class="donation-project">{{ $p->project->name ?? '—' }}</div>
                     </div>
                     <div style="text-align:right">
-                        <span class="donation-type">
-                            @if($p->role === 'volunteer') Tình nguyện viên
-                            @elseif($p->role === 'sponsor') Nhà tài trợ
-                            @else Tổ chức
-                            @endif
-                        </span>
+                       <span class="donation-type">{{ $p->role_label }}</span>
                     </div>
                 </div>
                 @endforeach

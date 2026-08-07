@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Donation;
 use App\Models\Participant;
 use Illuminate\Http\Request;
+use App\Models\Sponsor;
 
 class DashboardController extends Controller
 {
@@ -18,7 +19,7 @@ class DashboardController extends Controller
         $upcomingProjects  = Project::where('status', 'planning')->count();
 
         $totalParticipants = Participant::count();
-        $totalSponsors     = Participant::where('role', 'sponsor')->count();
+        $totalSponsors = Sponsor::count();
 
         $totalDonations    = Donation::count();
         $totalMoney        = Donation::where('type', 'money')->sum('amount') ?? 0;

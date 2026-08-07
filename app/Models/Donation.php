@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 
 class Donation extends Model
-    
-{   
+
+{
     use HasFactory;
     protected $fillable = [
         'project_id',
@@ -66,6 +66,10 @@ class Donation extends Model
     public function getDisplayDonorNameAttribute(): ?string
     {
         if (Auth::check() && optional(Auth::user())->isAdmin()) {
+            return $this->donor_name;
+        }
+
+        if ($this->donor_name && str_contains(mb_strtolower($this->donor_name), 'ẩn danh')) {
             return $this->donor_name;
         }
 
