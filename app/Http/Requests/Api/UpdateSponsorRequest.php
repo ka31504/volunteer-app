@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateSponsorRequest extends FormRequest
 {
@@ -19,7 +20,12 @@ class UpdateSponsorRequest extends FormRequest
             'phone'    => 'nullable|string|max:20',
             'email'    => 'nullable|email|max:255',
             'address'  => 'nullable|string|max:255',
-            'tax_code' => 'nullable|string|max:50',
+            'tax_code' => [
+                'nullable',
+                'string',
+                'max:50',
+                Rule::unique('sponsors', 'tax_code')->ignore($this->route('sponsor')),
+            ],
             'notes'    => 'nullable|string',
         ];
     }

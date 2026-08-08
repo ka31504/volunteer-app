@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Api;
+use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -19,8 +20,9 @@ class StoreSponsorRequest extends FormRequest
             'phone'    => 'nullable|string|max:20',
             'email'    => 'nullable|email|max:255',
             'address'  => 'nullable|string|max:255',
-            'tax_code' => 'nullable|string|max:50',
+            'tax_code' => 'nullable|string|max:50|unique:sponsors,tax_code',
             'notes'    => 'nullable|string',
         ];
     }
+    
 }
