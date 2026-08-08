@@ -65,7 +65,7 @@ class Donation extends Model
     }
     public function getDisplayDonorNameAttribute(): ?string
     {
-        if (Auth::check() && optional(Auth::user())->isAdmin()) {
+        if (Auth::check() && optional(Auth::user())->canViewSensitiveDonorData()) {
             return $this->donor_name;
         }
 
@@ -78,7 +78,7 @@ class Donation extends Model
 
     public function getDisplayDonorPhoneAttribute(): ?string
     {
-        if (Auth::check() && optional(Auth::user())->isAdmin()) {
+        if (Auth::check() && optional(Auth::user())->canViewSensitiveDonorData()) {
             return $this->donor_phone;
         }
 

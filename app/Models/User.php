@@ -41,4 +41,14 @@ class User extends Authenticatable
     {
         return $this->role === 'editor';
     }
+
+    /**
+     * Admin và editor xem được dữ liệu nhạy cảm của người đóng góp
+     * (donor_name/donor_phone) không bị mask; chỉ role 'user' bị mask.
+     * Dùng chung cho cả web (Blade) và API để tránh lệch hành vi.
+     */
+    public function canViewSensitiveDonorData(): bool
+    {
+        return $this->isAdmin() || $this->isEditor();
+    }
 }
