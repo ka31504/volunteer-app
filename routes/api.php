@@ -14,6 +14,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+    Route::get('/statistics', [\App\Http\Controllers\Api\StatisticsController::class, 'index']);
 
     // Xem: cả 3 role đều được (mask áp dụng ở Resource, không phải ở route)
     Route::get('/projects', [ProjectController::class, 'index']);

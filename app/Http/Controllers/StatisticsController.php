@@ -49,12 +49,12 @@ class StatisticsController extends Controller
      * Chỉ cache PHP primitives (array of scalar), không cache
      * Eloquent Collection/Model.
      */
-    private function getStatisticsData(int $year): array
+    protected function getStatisticsData(int $year): array
     {
         return Cache::remember("statistics.cards.{$year}", 300, function () use ($year) {
 
             $totalProjects = Project::count();
-            $activeProjects = Project::where('status', 'active')->count();
+            $activeProjects = Project::where('status', 'ongoing')->count();
             $completedProjects = Project::where('status', 'completed')->count();
 
             $totalDonationMoney = (float) Donation::where('type', 'money')
@@ -138,7 +138,7 @@ class StatisticsController extends Controller
     /**
      * Danh sách các năm có dữ liệu, phục vụ dropdown filter năm.
      */
-    private function getAvailableYears(): array
+    protected function getAvailableYears(): array
     {
         $years = Donation::selectRaw('DISTINCT YEAR(donated_at) as year')
             ->orderByDesc('year')

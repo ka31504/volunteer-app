@@ -21,14 +21,8 @@ class SponsorResource extends JsonResource
             'notes'             => $this->notes,
             // Chỉ tính khi cần (list dài gọi mỗi lần sẽ chậm do query riêng),
             // nên chỉ include ở show(), không include ở list()
-            'total_contributed' => $this->when(
-                $request->routeIs('*.show'),
-                fn () => $this->total_contributed,
-            ),
-            'donation_count'    => $this->when(
-                $request->routeIs('*.show'),
-                fn () => $this->donation_count,
-            ),
+            'total_contributed' => $this->whenLoaded('donations', fn() => $this->total_contributed),
+            'donation_count'    => $this->whenLoaded('donations', fn() => $this->donation_count),
             'donations'         => DonationResource::collection($this->whenLoaded('donations')),
         ];
     }
